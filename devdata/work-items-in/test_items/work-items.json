@@ -1,0 +1,26 @@
+[
+ 
+  {
+    "payload": {
+      "search_phrase": "Guatemala",
+      "news_categroy": "Books",
+      "data_time": 2
+    },
+    "files": {}
+  }, {
+      "payload": {
+        "search_phrase": "New York",
+        "news_categroy": "Titles",
+        "data_time": 2
+      },
+      "files": {}
+    },
+    {
+      "payload": {
+        "search_phrase": "Argentina",
+        "news_categroy": "Ron",
+        "data_time": 3
+      },
+      "files": {}
+    }
+]

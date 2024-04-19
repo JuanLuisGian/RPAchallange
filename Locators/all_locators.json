@@ -1,0 +1,25 @@
+{
+    "search_icon" : "xpath=//button[@aria-label='Open search bar']",
+    "search_box" : "xpath=//header[@data-testid='SiteHeader']/div/div/div/div[1]/div[3]/div[1]/div/div/input",
+    "search_button":"xpath=//button[@aria-label='Search']",
+
+
+    "order_by_list" :"xpath=//div[@class='css-hrdzfd']/div/select",
+    "date_range_options_list":"xpath=//div[@aria-label='Date Range']/button",
+    "specific_date_option":"xpath=//div[@aria-label='Date Range']/div/ul/li[6]/button",
+    "from_date_result":"xpath=//div[@aria-label='Date Range']/div/div[2]/div/label[1]/input",
+    "to_date_result":"xpath=//div[@aria-label='Date Range']/div/div[2]/div/label[2]/input",
+    "section_button" : "xpath=//div[@data-testid='section']/button",
+    "section_options":"xpath=//div[@data-testid='section']/div/ul",
+    "section_target_option" : "xpath=//div[@data-testid='section']/div/ul/li[index]/label/input",
+    "No_availableresult":"xpath=//h1[@id='main-content']",
+
+    "available_items_result":"xpath=//body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/ul/li",
+    "title_result_target":"xpath=//body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/ul/li[index]/div[1]/div/header",
+    "date_result_target":"xpath=//body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/ul/li[index]/div[1]/div/time",    
+    "image_result_targe":"xpath=//body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/ul/li[index]/div[1]/a/div/div/div/img",
+
+    "view_older_results_button":"xpath=//body/div[1]/div[2]/div[2]/div[1]/div[2]/div[3]/button[2]"
+
+ 
+}
