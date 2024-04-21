@@ -57,12 +57,12 @@ def get_results():
         
         if (found):
             filter_results(search_params["result_category"])
-            fetch_more_result = scann_results(int(search_params["oldest_month"]))
+            fetch_more_result = scann_results(search_params["search_phrase"],int(search_params["oldest_month"]))
             while (fetch_more_result):
                 #try_up to three time
                 for atempt in range(max_atemps_to_scan_results):
                     try:
-                        fetch_more_result = scann_results(
+                        fetch_more_result = scann_results(search_params["search_phrase"],
                             int(search_params["oldest_month"]))
                         break
                     except:
@@ -78,11 +78,14 @@ def get_results():
     except Exception as ex:
         built_in_tools.log_to_console("-An error has ocurred, please refer to the following error")
         built_in_tools.log_to_console(f"{str(ex)}")
-        work_items_tools.release_input_work_item(state=State.FAILED,message=str(ex))
+        work_items_tools.release_input_work_item(state=State.FAILED,message=str(ex),exception_type="APPLICATION")
 
 def search_item(search_topic: str, result_category: str, most_resent_data: int):
     """
     Searchs and detects if a results exist upon search
+    search_topic: value to search for
+    result_category: category to filter results
+    most_resent_data: how old in terms of months th result can be(1,2,3 months ago)
     """
     # check input  validity
     if len(search_topic) == 0 or len(result_category) == 0 or most_resent_data > max_months:
@@ -104,23 +107,26 @@ def search_item(search_topic: str, result_category: str, most_resent_data: int):
         pass
     return True
     
-def scann_results(months_ago):
+def scann_results(search_phrase:str,months_ago:int):
     """
     Reads all resulting rows and extract metadata
+
     months_ago : how old (in months) the results can be
+    search_phrase: value used to idefntiy the set on the excel
     """
     #wait for the table to load
     web_tools.wait_until_element_is_visible(
         locator=locators["available_items_result"],timeout=max_time_to_load_results)
-
     
+
+
     # scan up to max number of rows
     no_of_available_rows = web_tools.get_element_count(
         locator=locators["available_items_result"])
     results = [
     #A separator for every payload
          {"Title": "******", "Date": "*******", "Description": "New Search Begins",
-                  "*******": "", "PhrasesCount": "*******", "MoneyAmountPresent": False}
+                  "Picture": f"for tearm'{search_phrase}'", "PhrasesCount": "*******", "MoneyAmountPresent": False}
     ]
 
     # we must continue fetching row as far they complie with the rules
@@ -135,26 +141,31 @@ def scann_results(months_ago):
         
         #Download the image bia URL 
         try:
+            web_tools.wait_until_element_is_visible(
+                locator=locators["image_result_targe"].replace("index", 
+                str(index)),timeout=5)
+            
             image_download_url = web_tools.get_element_attribute(
                 locator=locators["image_result_targe"].replace("index", str(index)), attribute="src")
             
-            result["Picture"] = image_download_url.split(
-                "/")[-1].split("jpg")[0]+"jpg"
+            result["Picture"] = image_download_url.split("/")[-1]
+            
             download_image(
                 f"{media_folder}/{result['Picture']}", image_download_url)
-        except:
+        except Exception as ex:
+            built_in_tools.log_to_console(f"Unable to dowload an image, last exception:\n {str(ex)}")
             result["Picture"] = "Not available"
 
         result["Description"] = "Not available"
 
-        result["PhrasesCount"] = len(result["Description"].split("Title"))
+        result["PhrasesCount"] = len(result["Title"].split(" "))
 
         result["Date"] = web_tools.get_text(
             locator=locators["date_result_target"].replace("index", str(index)))
         
         try:
             #expected formant, Month day, year (Ex. September 16, 2023)
-            result["Date"] = datetime.strptime(result["Date"], "%B %d, Y")
+            result["Date"] = datetime.strptime(result["Date"], "%B %d, %Y")
         except:
             result["Date"] = today_date
 
@@ -175,6 +186,9 @@ def scann_results(months_ago):
 def filter_results(result_category: str):
     """
     Apply filters to results.
+    result_category: category to filter the results on
+
+    the bot tries to get only the newest data
     """
     try:
         # filter section
