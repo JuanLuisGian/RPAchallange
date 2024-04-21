@@ -1,5 +1,6 @@
 output/
 venv/
+Images/
 temp/
 .rpa/
 .idea/

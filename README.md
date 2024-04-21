@@ -1,22 +1,23 @@
-# Template: Python - Minimal
+This a solution for bot that scrapts data from https://www.reuters.com/
 
-This template leverages the new Python open-source structure [robo](https://github.com/robocorp/robo), the [libraries](https://github.com/robocorp/robo#libraries) from to same project as well.
-The full power of [rpaframework](https://github.com/robocorp/rpaframework) is also available for you on Python as a backup while we implement new Python libraries.
+when searching for news
 
-The template provides you with the basic structure of a Python project: logging out of the box and controlling your tasks without fiddling with the base Python stuff. The environment contains the most used libraries, so you do not have to start thinking about those right away. 
+  
 
-👉 After running the bot, check out the `log.html` under the `output` -folder.
+The results can be found a excel file wich contains a table with:
 
-The template here is essentially empty, leaving you with a canvas to paint on.
+- Title: Name of the search result
 
-Do note that with Robocorp tooling you:
-- Do NOT need Python installed
-- Should NOT be writing `pip install..`; the [conda.yaml](https://github.com/robocorp/template-python/blob/master/conda.yaml) is here for a reason.
-- You do not need to worry about Python's main -functions and, most importantly, the logging setup
+- Description: Short description of the result
 
-🚀 Now, go get'em
+- Date: Result publication date
 
-For more information, do not forget to check out the following:
-* [Robocorp Documentation -site](https://robocorp.com/docs)
-* [Portal for more examples](https://robocorp.com/portal)
-* [robo repo](https://github.com/robocorp/robo) as this will developed a lot...
+- Image: Name of the image file on the search result, (the file can be contained inside images.zip)
+
+- PhrasesCount: Number of words in Title
+
+- MoneyAmountPresent:  True if there is money amount mentioned in the title
+
+  
+
+Each excel file is identified with the following format {day_month_year__hour}.xlsx

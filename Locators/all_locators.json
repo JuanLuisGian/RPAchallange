@@ -4,22 +4,22 @@
     "search_button":"xpath=//button[@aria-label='Search']",
 
 
-    "order_by_list" :"xpath=//div[@class='css-hrdzfd']/div/select",
-    "date_range_options_list":"xpath=//div[@aria-label='Date Range']/button",
-    "specific_date_option":"xpath=//div[@aria-label='Date Range']/div/ul/li[6]/button",
-    "from_date_result":"xpath=//div[@aria-label='Date Range']/div/div[2]/div/label[1]/input",
-    "to_date_result":"xpath=//div[@aria-label='Date Range']/div/div[2]/div/label[2]/input",
-    "section_button" : "xpath=//div[@data-testid='section']/button",
-    "section_options":"xpath=//div[@data-testid='section']/div/ul",
-    "section_target_option" : "xpath=//div[@data-testid='section']/div/ul/li[index]/label/input",
+    "sort_by_button" : "xpath=//button[@id='sortby']",
+    "sort_by_options_list":"xpath=//div[@data-testid='Select-Popup']//ul",
+    "sort_by_options_option":"xpath=//div[@data-testid='Select-Popup']//ul/li[@role='option'][index]",
+
+    "news_section_filter_button":"xpath=//button[@id='sectionfilter']",
+    "news_section_filter_list":"xpath=//div[@data-testid='Select-Popup']//ul",
+    "news_section_filter_option":"xpath=//div[@data-testid='Select-Popup']//ul/li[@role='option'][index]",
+
     "No_availableresult":"xpath=//h1[@id='main-content']",
 
-    "available_items_result":"xpath=//body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/ul/li",
-    "title_result_target":"xpath=//body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/ul/li[index]/div[1]/div/header",
-    "date_result_target":"xpath=//body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/ul/li[index]/div[1]/div/time",    
-    "image_result_targe":"xpath=//body/div[1]/div[2]/div[2]/div[1]/div[2]/div[2]/ul/li[index]/div[1]/a/div/div/div/img",
+    "available_items_result":"xpath=//ul[contains(@class,'search-results__list')]/li",
+    "title_result_target":"xpath=//ul[contains(@class,'search-results__list')]/li[index]/div[1]/div/header",
+    "date_result_target":"xpath=//ul[contains(@class,'search-results__list')]/li[index]/div[1]/div/time",    
+    "image_result_targe":"xpath=//ul[contains(@class,'search-results__list')]/li[index]/div[1]/a/div/div/div/img",
 
-    "view_older_results_button":"xpath=//body/div[1]/div[2]/div[2]/div[1]/div[2]/div[3]/button[2]"
+    "view_older_results_button":"xpath=//div[contains(@class,'search-results__pagination')]/button[@data-testid='Button'][@type='button'][2]"
 
  
 }
