@@ -278,11 +278,16 @@ def save_data_to_excel(items: list):
     excel_tools.close_workbook()
 
 def compress_results():
-    shutil.make_archive(media_folder, "zip", media_folder)
-    shutil.move(f"{media_folder}.zip", f".\output")
-    #clear media file afther zip
-    shutil.rmtree(media_folder)
+    try:
+        built_in_tools.log_to_console("compresing seach images")
+        shutil.make_archive(media_folder, "zip", media_folder)
+        shutil.move(f"{media_folder}.zip", f".\output")
+        #clear media file afther zip
+        shutil.rmtree(media_folder)
+        built_in_tools.log_to_console("compresing done")
+    except:
+        built_in_tools.log_to_console("There was problem while retreiving the images from the result")
 @task
 def minimal_task():
-
     work_items_tools.for_each_input_work_item(get_results, items_limit=5)
+    compress_results()

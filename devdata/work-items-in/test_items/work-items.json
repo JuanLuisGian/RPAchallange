@@ -2,9 +2,9 @@
  
   {
     "payload": {
-      "search_phrase": "Germany",
-      "result_category": "Books",
-      "oldest_month": 2
+      "search_phrase": "Miguel",
+      "result_category": "News",
+      "oldest_month": 1
     },
     "files": {}
   }, {
