@@ -95,10 +95,20 @@ def search_item(search_topic: str, result_category: str, most_resent_data: int):
             f"Max allowed moths{most_resent_data}"
         )
         return False
+    
     # type result in page
+    #web_interface_wait(time) is used to prevent bot detection by no typing fast
+    web_interface_wait(2)
+    web_tools.wait_until_element_is_enabled(locator=locators["search_icon"],timeout=10)
     web_tools.click_element(locator=locators["search_icon"])
+
+    web_interface_wait(2)
+    web_tools.wait_until_element_is_enabled(locator=locators["search_box"],timeout=10)
     web_tools.input_text(
         locator=locators["search_box"], text=search_topic, clear=True)
+    
+    web_interface_wait(2)
+    web_tools.wait_until_element_is_enabled(locator=locators["search_button"],timeout=10)
     web_tools.click_element(locator=locators["search_button"])
     try:
         if "No search results match the term " in web_tools.get_text(locators["No_availableresult"]):
@@ -153,7 +163,6 @@ def scann_results(search_phrase:str,months_ago:int):
             download_image(
                 f"{media_folder}/{result['Picture']}", image_download_url)
         except Exception as ex:
-            built_in_tools.log_to_console(f"Unable to dowload an image, last exception:\n {str(ex)}")
             result["Picture"] = "Not available"
 
         result["Description"] = "Not available"
@@ -182,6 +191,15 @@ def scann_results(search_phrase:str,months_ago:int):
         results.append(result)
     save_data_to_excel(results)
     return continue_to_fetch_more_results
+
+def web_interface_wait(senconds:int):
+    """
+    
+    """
+    try:
+        web_tools.wait_until_element_is_enabled(locator="xpath=//div[@id ='No existing locator']",timeout=senconds)
+    except:
+        pass
 
 def filter_results(result_category: str):
     """
