@@ -78,7 +78,7 @@ def get_results():
     except Exception as ex:
         built_in_tools.log_to_console("-An error has ocurred, please refer to the following error")
         built_in_tools.log_to_console(f"{str(ex)}")
-        work_items_tools.release_input_work_item(state=State.FAILED,message=str(ex),exception_type="APPLICATION")
+        work_items_tools.release_input_work_item(state=State.FAILED,message="Error at processing item",exception_type="APPLICATION")
 
 def search_item(search_topic: str, result_category: str, most_resent_data: int):
     """
@@ -87,6 +87,7 @@ def search_item(search_topic: str, result_category: str, most_resent_data: int):
     result_category: category to filter results
     most_resent_data: how old in terms of months th result can be(1,2,3 months ago)
     """
+    
     # check input  validity
     if len(search_topic) == 0 or len(result_category) == 0 or most_resent_data > max_months:
         built_in_tools.log_to_console(
@@ -115,6 +116,14 @@ def search_item(search_topic: str, result_category: str, most_resent_data: int):
             return False
     except:
         pass
+    #wait for the table to load
+    try:
+        web_tools.wait_until_element_is_visible(
+            locator=locators["available_items_result"],timeout=max_time_to_load_results)
+    except:
+        built_in_tools.log_to_console("Results table was not loaded, bot detection could had been activated")
+        return False
+
     return True
     
 def scann_results(search_phrase:str,months_ago:int):
@@ -124,9 +133,8 @@ def scann_results(search_phrase:str,months_ago:int):
     months_ago : how old (in months) the results can be
     search_phrase: value used to idefntiy the set on the excel
     """
-    #wait for the table to load
-    web_tools.wait_until_element_is_visible(
-        locator=locators["available_items_result"],timeout=max_time_to_load_results)
+   
+
     
 
 
@@ -194,7 +202,7 @@ def scann_results(search_phrase:str,months_ago:int):
 
 def web_interface_wait(senconds:int):
     """
-    
+    delays a selenium action
     """
     try:
         web_tools.wait_until_element_is_enabled(locator="xpath=//div[@id ='No existing locator']",timeout=senconds)
